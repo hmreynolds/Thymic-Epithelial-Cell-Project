@@ -127,9 +127,9 @@ p1 <- ggplot(cluster_props, aes(x = dataset, y = proportion, fill = age)) +
   scale_shape_manual(values = c(16,17)) +
   facet_wrap(~cluster, scales = "free_y") +
   theme_bw() +
-  theme(axis.text.x = element_text(size = 10),
+  theme(axis.text.x = element_text(size = 12, color = "black"),
+        axis.text.y = element_text(size = 10, color = "black"),
         axis.title.y = element_text(size = 12),
-        axis.text.y = element_text(size = 10),
         strip.text.x = element_text(size = 12),
         legend.text = element_text(size = 12),
         legend.title = element_text(size = 12),
@@ -528,12 +528,12 @@ p2 <- interferon_cTEC %>%
                        "SPFvsGF_A_UP" = "SPF Adult"
                      ))+
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
+  theme(axis.text.x = element_text(size = 8, color = "black"), 
         plot.title = element_text(hjust = 0, size = 12),
-        axis.text.y = element_text(size = 10),
+        axis.text.y = element_text(size = 8, color = "black"),
         axis.title.y = element_blank(),
         legend.text = element_text(size = 8),
-        legend.title = element_text(size = 10))  +
+        legend.title = element_text(size = 10))    +
   labs(
     title    = str_wrap("Response to Interferon-beta", width = 30) 
   )
@@ -711,10 +711,9 @@ p <- cool %>% ggplot(aes(
                         high = "darkred", midpoint = 0) +
   facet_grid(rows = vars(direction), scales = "free_y", space = "free") +
   theme_bw() +
-  theme(axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
-        axis.text.y = element_text(size = 8))  +
+  theme(axis.text.x = element_text(size = 8, color = "black"),
+        axis.text.y = element_text(size = 8, color = "black"))  +
   labs(
-    title    = "Delta Regulon Analysis",
     x = paste0("Delta Regulon Score"),
     y = "Transcrition Factor")
 p

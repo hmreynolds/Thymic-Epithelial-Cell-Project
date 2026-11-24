@@ -111,10 +111,10 @@ p1 <- plot_df %>%
              size = -log10(p.adjust), fill = NES)) +
   geom_point(shape = 21, stroke = 0.5, color = "black") +
   scale_fill_gradient2(low = "darkblue", mid = "white", high = "darkred", midpoint = 0) +
-  #facet_grid(rows = vars(direction), scales = "free_y", space = "free") +
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
-        axis.title.x = element_blank())  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color = "black"),
+        axis.text.y = element_text(size = 10, color = "black"),
+        axis.title.x = element_blank())   
 p1 <- p1 +  scale_y_discrete(
   labels = function(x) str_wrap(x, width = 50))
 p1
@@ -143,8 +143,9 @@ p2 <- plot_df %>%
   scale_fill_gradient2(low = "darkblue", mid = "white", high = "darkred", midpoint = 0) +
   #facet_grid(rows = vars(direction), scales = "free_y", space = "free") +
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1), 
-        axis.title.x = element_blank())  
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color = "black"), 
+        axis.text.y = element_text(size = 10, color = "black"),
+        axis.title.x = element_blank()) 
 p2 <- p2 +  scale_y_discrete(
   labels = function(x) str_wrap(x, width = 50))
 p2
@@ -420,9 +421,9 @@ library(ComplexHeatmap)
 p4 <- ComplexHeatmap::pheatmap(
   mat_scaled,
   name = "Expression",
-  labels_col = c("SPF-WM1", "SPF-WM2", "SPF-WM3", "SPF-WF1", "SPF-WF2", "SPF-WF3",
-                 "GF-WM1", "GF-WM2", "GF-WM3", "GF-WF1", "GF-WF2", "GF-WF3",
-                 "FMT-WM1", "FMT-WM2", "FMT-WF1", "FMT-WF2", "FMT-WF3"),
+  labels_col = c("WM-1", "WM-2", "WM-3", "WF-1", "WF-2", "WF-3",
+                 "WM-1", "WM-2", "WM-3", "WF-1", "WF-2", "WF-3",
+                 "WM-1", "WM-2", "WF-1", "WF-2", "WF-3"),
   annotation_row = annotation_row[, c("log2FC_SPFvsGF", "log2FC_GF_FMTvsGF", "log2FC_SPFvsGF_FMT"), drop = FALSE],
   annotation_colors = list(
     log2FC_SPFvsGF = c(Down = "grey", "|<0.5|" = "white", Up = "#5E3C86"),
@@ -435,7 +436,7 @@ p4 <- ComplexHeatmap::pheatmap(
   cluster_cols = FALSE,
   angle_col = "45",
   row_split = annotation_row$group,
-  row_gap = unit(8, "mm"),
+  row_gap = unit(6, "mm"),
   fontsize_row = 10,
   cluster_row_slices = FALSE,
   color = colorRampPalette(c("navy", "white", "firebrick3"))(100)
@@ -512,8 +513,8 @@ p5 <- ComplexHeatmap::pheatmap(
   annotation_colors = list(
     log2FC = c(Down = "grey", "|<0.5|" = "white", Up = "#5E3C86")
   ),
-  labels_row = c("GF-WM1", "GF-WM2", "GF-WM3", "GF-WF1", "GF-WF2", "GF-WF3",
-                 "FMT-WM1", "FMT-WM2", "FMT-WF1", "FMT-WF2", "FMT-WF3"),
+  labels_row = c("WM-1", "WM-2", "WM-3", "WF-1", "WF-2", "WF-3",
+                 "WM-1", "WM-2", "WF-1", "WF-2", "WF-3"),
   show_rownames = TRUE,
   show_colnames = TRUE,
   cluster_rows = FALSE,

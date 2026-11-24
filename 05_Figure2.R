@@ -54,7 +54,9 @@ p2 <- ggplot(ClusterFreq, aes(x = Var2, y = Freq, fill = Var1)) +
         axis.ticks.length = unit(0.25, "cm"),
         
   ) +
-  labs(y = "Proportion of cTECs") 
+  labs(y = "Proportion of cTECs",
+       x = c("M-1", "M-2", "M-3", "F-1", "F-2", "F-3",
+             "M-1", "M-2", "M-3", "F-1", "F-2", "F-3")) 
 p2
 
 
@@ -147,12 +149,12 @@ Title = "GO+Reactome GSEA Pathways"
 Name = "SPF cTEC Weaning vs Adult"
 p5 <- ggplot(combined_df, aes(x = reorder_within(Description, NES, Direction))) +
   geom_bar(aes(y = NES), stat = "identity", fill = "grey85", width = 0.8, color = "darkgrey") +
-  geom_point(aes(y = NES, size = setSize, fill = p.adjust), shape = 21, color = "black") +
+  geom_point(aes(y = NES, size = -log10(p.adjust), fill = NES), shape = 21, color = "black") +
   facet_wrap(~Direction, ncol = 1, scales = "free_y", 
              labeller = as_labeller(c("Up in Weaning" = "Antigen Processing/Presentation",
                                       "Down in Weaning" = "Homeostatic Remodeling"))) +
-  scale_fill_gradient(low = "darkblue", high = "red", name = "Adj p-value") +
-  scale_size_continuous(name = "Gene Count") +
+  scale_fill_gradient2(low = "darkblue", mid = "white", high = "darkred", name = "NES") +
+  scale_size_continuous(name = "-log10(p.adjust)") +
   scale_x_reordered(labels = function(x) str_wrap(str_remove(x, "___.+$"), width = 50)) +
   coord_flip() +
   labs(
@@ -163,11 +165,11 @@ p5 <- ggplot(combined_df, aes(x = reorder_within(Description, NES, Direction))) 
   theme_bw() +
   theme(
     plot.subtitle = element_text(hjust = 0.5, face = "bold", size = 10),
-    axis.text.y = element_text(size = 10),
+    axis.text.y = element_text(size = 10, color = "black"),
+    axis.text.x = element_text(size = 10, color = "black"),
     plot.title = element_text(hjust = 0.5, size = 12, face = "bold"),
-    strip.text.x = element_text(size = 10),
+    strip.text.x = element_text(size = 10, color = "black"),
     legend.position = "right", 
-    panel.grid = element_blank(),
     legend.text = element_text(size = 8),
     legend.title = element_text(size = 10)
   )
@@ -240,8 +242,8 @@ p6 <-  pheatmap(
   annotation_colors = list(
     log2FC = c(Down = "grey", "|<0.5|" = "white", Up = "#5E3C86")
   ),
-  labels_col = c("WM1", "WM2", "WM3", "WF1", "WF2", "WF3",
-                 "AM1", "AM2", "AM3", "AF1", "AF2", "AF3"),
+  labels_col = c("M-1", "M-2", "M-3", "F-1", "F-2", "F-3",
+                 "M-1", "M-2", "M-3", "F-1", "F-2", "F-3"),
   show_rownames = TRUE,
   show_colnames = TRUE,
   cluster_cols = FALSE,
